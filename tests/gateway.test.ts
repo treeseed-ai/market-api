@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createMarketGateway } from '../src/gateway.ts';
-import { createAudienceBoundAssertion } from '../src/service-assertion.ts';
+import { createMarketGateway } from '../src/gateway.js';
+import { createAudienceBoundAssertion } from '../src/service-assertion.js';
 
 const checks = { 'market-database': async () => true, 'admin-api': async () => true, 'internal-auth': async () => true, 'provider-bindings': async () => true };
 
