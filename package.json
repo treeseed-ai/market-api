@@ -9,12 +9,12 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run",
+    "test": "vitest run tests",
     "verify": "npm run build && npm test",
     "start": "node dist/server.js"
   },
   "dependencies": {
-    "@treeseed/sdk": "git+https://github.com/treeseed-ai/sdk.git#c8a720eee8e9932c2df5869f25aa9f8a724eb211"
+    "@treeseed/sdk": "git+https://github.com/treeseed-ai/sdk.git#0f85cc9a5e7a050f5ec9816a96201f71ba15068e"
   },
   "devDependencies": {
     "@types/node": "^24.6.0",
