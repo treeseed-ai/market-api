@@ -2,7 +2,7 @@
   "schemaVersion": "treeseed.admin-api-descriptor/v1",
   "package": "@treeseed/api",
   "version": "0.6.57",
-  "sourceRef": "cb160743d5acac2613e53ab23e4e5499f3f140bd",
+  "sourceRef": "52ce7eba5fbc09994bdbcb4acbc1f08afe18f816",
   "digest": "sha256:a1db527487273f6a531551cfdc6d1be2ae84353a9e0dc37391729983c98a2090",
   "routeCount": 579,
   "routes": [

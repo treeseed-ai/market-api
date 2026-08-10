@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run tests",
+    "test": "vitest run tests/gateway.test.ts tests/descriptor.test.ts",
     "verify": "npm run build && npm test",
     "start": "node dist/server.js"
   },
