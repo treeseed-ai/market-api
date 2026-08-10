@@ -1,0 +1,24 @@
+{
+  "name": "@treeseed/market-api",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "verify": "npm run build && npm test",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@treeseed/sdk": "git+https://github.com/treeseed-ai/sdk.git#c8a720eee8e9932c2df5869f25aa9f8a724eb211"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.2"
+  }
+}
