@@ -1,0 +1,23 @@
+schemaVersion: treeseed.package/v1
+id: "@treeseed/market-api"
+name: TreeSeed Market API
+kind: node-typescript
+type: singleton-hosted-service
+repository: treeseed-ai/market-api
+capabilities: { save: true, verify: true, publish: false, deploy: false, localOnly: false }
+workflowTemplateVersion: "1"
+githubEnvironments:
+  - staging
+  - production
+verify:
+  fast: npm run verify
+  local: npm run verify
+  release: npm run verify
+releaseGate:
+  workflow: verify.yml
+  timeoutSeconds: 1800
+projectArchitecture:
+  topology: single_repository_site
+  rootPath: .
+  contentRuntimeSource: r2_published_manifest
+  localContentMaterialization: none

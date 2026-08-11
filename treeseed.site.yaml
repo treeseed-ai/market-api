@@ -1,0 +1,21 @@
+name: TreeSeed Market API
+slug: treeseed-market-api
+siteUrl: https://api.treeseed.dev
+contactEmail: hello@treeseed.email
+authority:
+  kind: market-singleton
+market:
+  profile: treeseed
+controlPlane:
+  mode: market-passthrough
+hosting:
+  kind: treeseed_control_plane
+  registration: none
+  teamId: treeseed
+  projectId: market-api
+runtime:
+  mode: treeseed_managed
+  registration: none
+providers:
+  deploy: railway
+  dns: cloudflare-dns
