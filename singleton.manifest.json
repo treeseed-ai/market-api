@@ -1,9 +1,9 @@
 {
   "schemaVersion": 3,
   "authority": "market-singleton",
-  "sdkRef": "93690c1bcb569ac11554c16a03ba253dd8a8a141",
-  "adminApiRef": "76508e4d55a179340899a58cb1bafc1dab7c8be4",
-  "adminDescriptorDigest": "sha256:a1db527487273f6a531551cfdc6d1be2ae84353a9e0dc37391729983c98a2090",
+  "sdkRef": "d8d1a1c52303128f7c9d8a49863d4b280b75a77b",
+  "adminApiRef": "5e9b323a597b7d148d77b1172ffc894ef8e41e42",
+  "adminDescriptorDigest": "sha256:810cccc26feaf12fe437e102274b78878d4a420325c666b418ed297bcdca3f8e",
   "deployment": "suspended",
   "managedPaths": [
     ".github/workflows/verify.yml",
@@ -18,6 +18,7 @@
     "src/service-assertion.ts",
     "tests/descriptor.test.ts",
     "tests/gateway.test.ts",
+    "tests/profile.test.ts",
     "treeseed.package.yaml",
     "treeseed.site.yaml",
     "tsconfig.build.json",
