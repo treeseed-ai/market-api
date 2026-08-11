@@ -1,8 +1,22 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "authority": "market-singleton",
-  "sdkRef": "f13f73977f3edf4a082bc28d8751ccd36530ca0f",
+  "sdkRef": "9607911e8a0728008eab27a18563d6c5fefcac51",
   "adminApiRef": "ff8f8b7753277fb79a2eb4a5a77f1f103252e6d3",
   "adminDescriptorDigest": "sha256:a1db527487273f6a531551cfdc6d1be2ae84353a9e0dc37391729983c98a2090",
-  "deployment": "suspended"
+  "deployment": "suspended",
+  "managedPaths": [
+    ".github/workflows/verify.yml",
+    "LICENSE",
+    "README.md",
+    "artifacts/admin-api-descriptor.json",
+    "package.json",
+    "singleton.manifest.json",
+    "src/gateway.ts",
+    "src/server.ts",
+    "src/service-assertion.ts",
+    "tests/descriptor.test.ts",
+    "tests/gateway.test.ts",
+    "tsconfig.json"
+  ]
 }
