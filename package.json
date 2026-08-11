@@ -17,7 +17,7 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
-    "@treeseed/sdk": "git+https://github.com/treeseed-ai/sdk.git#7406c10e7010a719b6fea8f5710c59f2371cd8e5"
+    "@treeseed/sdk": "git+https://github.com/treeseed-ai/sdk.git#ae3efe1bd91ebc0e0ea50fb460a89f8abbc227a0"
   },
   "devDependencies": {
     "@types/node": "24.6.0",
