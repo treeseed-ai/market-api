@@ -7,10 +7,11 @@ const descriptor = JSON.parse(readFileSync(resolve(import.meta.dirname, '../arti
 const deployment = JSON.parse(readFileSync(resolve(import.meta.dirname, '../singleton.manifest.json'), 'utf8'));
 
 describe('Admin route descriptor pin', () => {
-	it('pins the exact Admin image ref and exposes a disjoint route union', () => {
+	it('pins the exact Admin image ref and exposes a unique disjoint route union', () => {
 		expect(descriptor.sourceRef).toBe(deployment.adminApiRef);
 		expect(descriptor.routeCount).toBe(descriptor.routes.length);
 		expect(descriptor.routes.every((route: { path: string }) => !route.path.startsWith('/v1/market/'))).toBe(true);
+		expect(new Set(descriptor.routes.map((route: { method: string; path: string }) => `${route.method} ${route.path}`)).size).toBe(descriptor.routeCount);
 		const digest = createHash('sha256').update(JSON.stringify(descriptor.routes)).digest('hex');
 		expect(`sha256:${digest}`).toBe(descriptor.digest);
 		expect(descriptor.digest).toBe(deployment.adminDescriptorDigest);

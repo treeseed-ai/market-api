@@ -1,17 +1,33 @@
 import { describe, expect, it, vi } from 'vitest';
+import descriptor from '../artifacts/admin-api-descriptor.json' with { type: 'json' };
 import { createMarketGateway } from '../src/gateway.js';
 import { createAudienceBoundAssertion } from '../src/service-assertion.js';
 
 const checks = { 'market-database': async () => true, 'admin-api': async () => true, 'internal-auth': async () => true, 'provider-bindings': async () => true };
+const concretePath = (path: string) => path.replace(/:[^/]+/gu, 'fixture');
 
 describe('singleton Market gateway', () => {
-	it('owns Market routes and passes every other v1 route to Admin', async () => {
+	it('owns Market routes and passes every declared Admin method and path through exactly', async () => {
 		const fetchImpl = vi.fn(async () => Response.json({ admin: true }, { status: 202 }));
 		const gateway = createMarketGateway({ adminBaseUrl: 'http://admin.internal', checks, fetchImpl });
 		expect((await gateway(new Request('https://api.treeseed.dev/v1/market/status'))).status).toBe(200);
-		const response = await gateway(new Request('https://api.treeseed.dev/v1/projects?id=one'));
-		expect(response.status).toBe(202);
-		expect(fetchImpl).toHaveBeenCalledWith('http://admin.internal/v1/projects?id=one', expect.anything());
+		for (const route of descriptor.routes) {
+			const response = await gateway(new Request(`https://api.treeseed.dev${concretePath(route.path)}?inventory=true`, { method: route.method }));
+			expect(response.status, `${route.method} ${route.path}`).toBe(202);
+		}
+		expect(fetchImpl).toHaveBeenCalledTimes(descriptor.routeCount);
+	});
+
+	it('rejects undeclared paths, method mismatches, and Admin shadowing of Market', async () => {
+		const fetchImpl = vi.fn(async () => Response.json({ admin: true }));
+		const gateway = createMarketGateway({ adminBaseUrl: 'http://admin.internal', checks, fetchImpl });
+		const route = descriptor.routes[0]!;
+		const methods = new Set(descriptor.routes.filter((candidate) => candidate.path === route.path).map((candidate) => candidate.method));
+		const mismatched = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].find((method) => !methods.has(method))!;
+		expect((await gateway(new Request('https://api.treeseed.dev/v1/not-declared'))).status).toBe(404);
+		expect((await gateway(new Request(`https://api.treeseed.dev${concretePath(route.path)}`, { method: mismatched }))).status).toBe(404);
+		expect((await gateway(new Request('https://api.treeseed.dev/v1/market/not-declared'))).status).toBe(404);
+		expect(fetchImpl).not.toHaveBeenCalled();
 	});
 
 	it('fails readiness when hosted Admin is unavailable while process health remains available', async () => {
