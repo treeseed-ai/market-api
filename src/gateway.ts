@@ -1,4 +1,4 @@
-import { createAdminPassthroughHandler, createGatewayHealthHandlers } from '@treeseed/sdk';
+import { createAdminPassthroughHandler, createGatewayHealthHandlers } from '@treeseed/sdk/market-gateway';
 import descriptor from '../artifacts/admin-api-descriptor.json' with { type: 'json' };
 
 export type MarketHandler = (request: Request) => Promise<Response> | Response;
