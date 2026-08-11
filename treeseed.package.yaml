@@ -17,7 +17,8 @@ releaseGate:
   workflow: verify.yml
   timeoutSeconds: 1800
 projectArchitecture:
-  topology: single_repository_site
+  topology: split_site_content
   rootPath: .
-  contentRuntimeSource: r2_published_manifest
+  contentPath: src/content
+  contentRuntimeSource: r2_preview_overlay
   localContentMaterialization: none
