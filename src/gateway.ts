@@ -12,7 +12,10 @@ export function createMarketGateway(options: { adminBaseUrl: string; checks: Dep
 		if (path === '/healthz') return health.process();
 		if (path === '/healthz/deep') return health.deep();
 		if (path === '/readyz') return health.ready();
-		if (path === '/v1/market/status') return Response.json({ ok: true, service: 'market-api', adminDescriptor: 'sha256:a1db527487273f6a531551cfdc6d1be2ae84353a9e0dc37391729983c98a2090' });
+		if (path === '/v1/market/status') return Response.json({ ok: true, service: 'market-api', adminDescriptor: 'sha256:810cccc26feaf12fe437e102274b78878d4a420325c666b418ed297bcdca3f8e' });
+		if (path === '/v1/market/profile') return request.method === 'GET'
+			? Response.json({ ok: true, payload: { id: 'central', label: 'TreeSeed Central Market', baseUrl: 'https://api.treeseed.dev', kind: 'central', alwaysAvailable: true } })
+			: Response.json({ error: 'method-not-allowed' }, { status: 405, headers: { allow: 'GET' } });
 		if (path.startsWith('/v1/market/')) return options.marketHandler ? options.marketHandler(request) : Response.json({ error: 'market-route-not-found' }, { status: 404 });
 		if (path.startsWith('/v1/')) return admin(request);
 		return Response.json({ error: 'not-found' }, { status: 404 });
