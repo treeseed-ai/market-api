@@ -1,8 +1,8 @@
 {
   "schemaVersion": 3,
   "authority": "market-singleton",
-  "sdkRef": "d8d1a1c52303128f7c9d8a49863d4b280b75a77b",
-  "adminApiRef": "5e9b323a597b7d148d77b1172ffc894ef8e41e42",
+  "sdkRef": "8eb1a6a1b39202d0e0fb1014b8ddcb64002a0ed7",
+  "adminApiRef": "9c40a9803f8245821e0408673179562b898042b5",
   "adminDescriptorDigest": "sha256:810cccc26feaf12fe437e102274b78878d4a420325c666b418ed297bcdca3f8e",
   "deployment": "suspended",
   "managedPaths": [
