@@ -2,10 +2,10 @@
   "schemaVersion": "treeseed.admin-api-descriptor/v1",
   "package": "@treeseed/api",
   "version": "0.6.57",
-  "sourceRef": "9c40a9803f8245821e0408673179562b898042b5",
-  "digest": "sha256:810cccc26feaf12fe437e102274b78878d4a420325c666b418ed297bcdca3f8e",
-  "routeCount": 578,
-  "adminRouteCount": 429,
+  "sourceRef": "8fda838fa8bc389b5f811dfbd6ee34903a2b6638",
+  "digest": "sha256:6a269662cf306be8b48fca606b7d7e6a4085062a2938560f9b405bbba403697f",
+  "routeCount": 616,
+  "adminRouteCount": 467,
   "marketRouteCount": 149,
   "migrationReady": false,
   "routes": [
@@ -1719,6 +1719,48 @@
       "sdkMethods": [
         "artifactDownload"
       ]
+    },
+    {
+      "id": "get.v1.client-sessions.sessionId.actions",
+      "method": "GET",
+      "path": "/v1/client-sessions/:sessionId/actions",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "user",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "sessionId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "health-and-markets",
+        "verifierRef": "api.endpoints.health-and-markets",
+        "coverage": "descriptor-matrix"
+      }
     },
     {
       "id": "get.v1.commerce.capacity-listing-inquiries",
@@ -4260,11 +4302,11 @@
           "teamOwner",
           "teamOperator",
           "teamViewer",
-          "nonMember",
           "providerOperator"
         ],
         "denyActors": [
           "anonymous",
+          "nonMember",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -4362,6 +4404,46 @@
       "guarantee": {
         "familyId": "health-and-markets",
         "verifierRef": "api.endpoints.health-and-markets",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "get.v1.internal.treedx.authoring-journal.status",
+      "method": "GET",
+      "path": "/v1/internal/treedx/authoring-journal/status",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "platform-runner",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "platformRunner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "internal-webhooks-and-federation",
+        "verifierRef": "api.endpoints.internal-webhooks-and-federation",
         "coverage": "descriptor-matrix"
       }
     },
@@ -7126,6 +7208,90 @@
       }
     },
     {
+      "id": "get.v1.provider.assignments.assignmentId.activity",
+      "method": "GET",
+      "path": "/v1/provider/assignments/:assignmentId/activity",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
+      "id": "get.v1.provider.assignments.assignmentId.discussions",
+      "method": "GET",
+      "path": "/v1/provider/assignments/:assignmentId/discussions",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
       "id": "get.v1.provider.assignments.assignmentId.explanation",
       "method": "GET",
       "path": "/v1/provider/assignments/:assignmentId/explanation",
@@ -7557,6 +7723,137 @@
       "safeProduction": true,
       "fixtures": [
         "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "get.v1.teams.teamId.agent-deployments.deploymentId",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/agent-deployments/:deploymentId",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId",
+        "deploymentId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "agentDeployment"
+      ]
+    },
+    {
+      "id": "get.v1.teams.teamId.agent-invocations",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/agent-invocations",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "get.v1.teams.teamId.agent-invocations.invocationId",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/agent-invocations/:invocationId",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId",
+        "invocationId"
       ],
       "providerIngress": false,
       "internalRunner": false,
@@ -9002,6 +9299,52 @@
       ]
     },
     {
+      "id": "get.v1.teams.teamId.capacity.assignments.assignmentId.authority-probe",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/capacity/assignments/:assignmentId/authority-probe",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId",
+        "assignmentId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      },
+      "sdkMethods": [
+        "assignmentAuthorityProbe"
+      ]
+    },
+    {
       "id": "get.v1.teams.teamId.capacity.assignments.assignmentId.explanation",
       "method": "GET",
       "path": "/v1/teams/:teamId/capacity/assignments/:assignmentId/explanation",
@@ -9317,6 +9660,90 @@
       "sdkMethods": [
         "capacityUsage"
       ]
+    },
+    {
+      "id": "get.v1.teams.teamId.client-actions",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/client-actions",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "get.v1.teams.teamId.communication-status",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/communication-status",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
     },
     {
       "id": "get.v1.teams.teamId.deletion-blockers",
@@ -9917,6 +10344,48 @@
       }
     },
     {
+      "id": "get.v1.teams.teamId.operation-handoffs",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/operation-handoffs",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
       "id": "get.v1.teams.teamId.permissions",
       "method": "GET",
       "path": "/v1/teams/:teamId/permissions",
@@ -10002,6 +10471,94 @@
         "verifierRef": "api.endpoints.teams-and-members",
         "coverage": "descriptor-matrix"
       }
+    },
+    {
+      "id": "get.v1.teams.teamId.project-inventory",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/project-inventory",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "get.v1.teams.teamId.projects.projectId.context-query-checks",
+      "method": "GET",
+      "path": "/v1/teams/:teamId/projects/:projectId/context-query-checks",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "read",
+      "safeProduction": true,
+      "fixtures": [
+        "teamId",
+        "projectId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": null,
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "read"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "projectContextQueryChecks"
+      ]
     },
     {
       "id": "get.v1.teams.teamId.service-operation-leases.leaseId",
@@ -12204,14 +12761,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -12249,14 +12806,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -12381,14 +12938,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -13508,6 +14065,131 @@
       "guarantee": {
         "familyId": "catalog-templates-and-seeds",
         "verifierRef": "api.endpoints.catalog-templates-and-seeds",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "post.v1.client-sessions",
+      "method": "POST",
+      "path": "/v1/client-sessions",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "user",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "health-and-markets",
+        "verifierRef": "api.endpoints.health-and-markets",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "post.v1.client-sessions.sessionId.actions.actionId.result",
+      "method": "POST",
+      "path": "/v1/client-sessions/:sessionId/actions/:actionId/result",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "user",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "sessionId",
+        "actionId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "health-and-markets",
+        "verifierRef": "api.endpoints.health-and-markets",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "post.v1.client-sessions.sessionId.heartbeat",
+      "method": "POST",
+      "path": "/v1/client-sessions/:sessionId/heartbeat",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "user",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "sessionId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "health-and-markets",
+        "verifierRef": "api.endpoints.health-and-markets",
         "coverage": "descriptor-matrix"
       }
     },
@@ -17105,6 +17787,48 @@
           "teamOwner",
           "teamOperator",
           "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "health-and-markets",
+        "verifierRef": "api.endpoints.health-and-markets",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "post.v1.discussions.discussionId.status",
+      "method": "POST",
+      "path": "/v1/discussions/:discussionId/status",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "user",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "discussionId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
           "providerOperator"
         ],
@@ -17561,6 +18285,46 @@
       }
     },
     {
+      "id": "post.v1.governance.execution-authorities.validate",
+      "method": "POST",
+      "path": "/v1/governance/execution-authorities/validate",
+      "runtimePlane": "admin",
+      "ownerDomain": "governance",
+      "authClass": "user",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "governance-and-decisions",
+        "verifierRef": "api.endpoints.governance-and-decisions",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
       "id": "post.v1.internal.credential-deliveries.consume",
       "method": "POST",
       "path": "/v1/internal/credential-deliveries/consume",
@@ -17587,6 +18351,46 @@
           "anonymous",
           "providerAccessToken",
           "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "internal-webhooks-and-federation",
+        "verifierRef": "api.endpoints.internal-webhooks-and-federation",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
+      "id": "post.v1.internal.treedx.credential-deliveries.prepare",
+      "method": "POST",
+      "path": "/v1/internal/treedx/credential-deliveries/prepare",
+      "runtimePlane": "admin",
+      "ownerDomain": "market",
+      "authClass": "platform-runner",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "platformRunner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken"
         ],
         "expectedSuccessStatus": 200,
         "exactStatusRequired": true,
@@ -18771,6 +19575,51 @@
       }
     },
     {
+      "id": "post.v1.projects.projectId.archive",
+      "method": "POST",
+      "path": "/v1/projects/:projectId/archive",
+      "runtimePlane": "admin",
+      "ownerDomain": "project",
+      "authClass": "project-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "projectId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "projectUpdate",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "projects-and-workstreams",
+        "verifierRef": "api.endpoints.projects-and-workstreams",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "archiveProject"
+      ]
+    },
+    {
       "id": "post.v1.projects.projectId.governance-policy",
       "method": "POST",
       "path": "/v1/projects/:projectId/governance-policy",
@@ -19370,6 +20219,51 @@
       ]
     },
     {
+      "id": "post.v1.projects.projectId.restore",
+      "method": "POST",
+      "path": "/v1/projects/:projectId/restore",
+      "runtimePlane": "admin",
+      "ownerDomain": "project",
+      "authClass": "project-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "projectId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "projectUpdate",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "projects-and-workstreams",
+        "verifierRef": "api.endpoints.projects-and-workstreams",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "restoreProject"
+      ]
+    },
+    {
       "id": "post.v1.projects.projectId.treedx-library",
       "method": "POST",
       "path": "/v1/projects/:projectId/treedx-library",
@@ -19664,6 +20558,90 @@
       }
     },
     {
+      "id": "post.v1.provider.assignments.assignmentId.client-actions",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/client-actions",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
+      "id": "post.v1.provider.assignments.assignmentId.closeout-start",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/closeout-start",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
       "id": "post.v1.provider.assignments.assignmentId.complete",
       "method": "POST",
       "path": "/v1/provider/assignments/:assignmentId/complete",
@@ -19706,9 +20684,177 @@
       }
     },
     {
+      "id": "post.v1.provider.assignments.assignmentId.completion-preflight",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/completion-preflight",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "providerAssignmentComplete",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
+      "id": "post.v1.provider.assignments.assignmentId.discussions.handoffs",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/discussions/handoffs",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
+      "id": "post.v1.provider.assignments.assignmentId.discussions.responses",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/discussions/responses",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
       "id": "post.v1.provider.assignments.assignmentId.events",
       "method": "POST",
       "path": "/v1/provider/assignments/:assignmentId/events",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
+      "id": "post.v1.provider.assignments.assignmentId.execution-start",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/execution-start",
       "runtimePlane": "admin",
       "ownerDomain": "provider-ingress",
       "authClass": "provider-access-token",
@@ -19805,6 +20951,48 @@
       "internalRunner": false,
       "acceptance": {
         "bodyFactory": "agentModeRun",
+        "successActors": [
+          "providerAccessToken"
+        ],
+        "denyActors": [
+          "anonymous",
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      }
+    },
+    {
+      "id": "post.v1.provider.assignments.assignmentId.operation-handoffs",
+      "method": "POST",
+      "path": "/v1/provider/assignments/:assignmentId/operation-handoffs",
+      "runtimePlane": "admin",
+      "ownerDomain": "provider-ingress",
+      "authClass": "provider-access-token",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "assignmentId"
+      ],
+      "providerIngress": true,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
         "successActors": [
           "providerAccessToken"
         ],
@@ -20672,6 +21860,231 @@
       ]
     },
     {
+      "id": "post.v1.teams.teamId.agent-deployments.deploymentId.activate",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/agent-deployments/:deploymentId/activate",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "deploymentId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "activateAgentDeployment"
+      ]
+    },
+    {
+      "id": "post.v1.teams.teamId.agent-deployments.deploymentId.upgrade",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/agent-deployments/:deploymentId/upgrade",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "deploymentId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "upgradeAgentDeployment"
+      ]
+    },
+    {
+      "id": "post.v1.teams.teamId.agent-deployments.execute",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/agent-deployments/execute",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "executeAgentDeployment"
+      ]
+    },
+    {
+      "id": "post.v1.teams.teamId.agent-deployments.plan",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/agent-deployments/plan",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "planAgentDeployment"
+      ]
+    },
+    {
+      "id": "post.v1.teams.teamId.agent-invocations.invocationId.cancel",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/agent-invocations/:invocationId/cancel",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "invocationId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      }
+    },
+    {
       "id": "post.v1.teams.teamId.agent-lab.allocation",
       "method": "POST",
       "path": "/v1/teams/:teamId/agent-lab/allocation",
@@ -20690,14 +22103,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20732,14 +22145,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20774,14 +22187,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20816,14 +22229,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20859,14 +22272,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20901,14 +22314,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20943,14 +22356,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -20985,14 +22398,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -22224,6 +23637,98 @@
       ]
     },
     {
+      "id": "post.v1.teams.teamId.capacity.assignments.assignmentId.content-abandonment",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/capacity/assignments/:assignmentId/content-abandonment",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "assignmentId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "providerAssignment",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      },
+      "sdkMethods": [
+        "abandonAssignmentContent"
+      ]
+    },
+    {
+      "id": "post.v1.teams.teamId.capacity.assignments.assignmentId.content-integration",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/capacity/assignments/:assignmentId/content-integration",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "assignmentId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "providerAssignment",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "capacity-and-provider-control-plane",
+        "verifierRef": "api.endpoints.capacity-and-provider-control-plane",
+        "coverage": "descriptor-and-workflow"
+      },
+      "sdkMethods": [
+        "integrateAssignmentContent"
+      ]
+    },
+    {
       "id": "post.v1.teams.teamId.capacity.assignments.assignmentId.requeue",
       "method": "POST",
       "path": "/v1/teams/:teamId/capacity/assignments/:assignmentId/requeue",
@@ -22909,6 +24414,52 @@
       ]
     },
     {
+      "id": "post.v1.teams.teamId.projects.projectId.context-query-checks",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/projects/:projectId/context-query-checks",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "projectId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner",
+          "teamOperator",
+          "teamViewer",
+          "providerOperator"
+        ],
+        "denyActors": [
+          "anonymous",
+          "nonMember",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "teams-and-members",
+        "verifierRef": "api.endpoints.teams-and-members",
+        "coverage": "descriptor-matrix"
+      },
+      "sdkMethods": [
+        "checkProjectContextQuery"
+      ]
+    },
+    {
       "id": "post.v1.teams.teamId.restore",
       "method": "POST",
       "path": "/v1/teams/:teamId/restore",
@@ -23563,6 +25114,97 @@
       ]
     },
     {
+      "id": "post.v1.teams.teamId.workday-runs.preflight",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/workday-runs/preflight",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "agent-graphs-and-workdays",
+        "verifierRef": "api.endpoints.agent-graphs-and-workdays",
+        "coverage": "descriptor-and-workflow"
+      },
+      "sdkMethods": [
+        "preflightWorkdayRun"
+      ]
+    },
+    {
+      "id": "post.v1.teams.teamId.workday-runs.runId.close-admission",
+      "method": "POST",
+      "path": "/v1/teams/:teamId/workday-runs/:runId/close-admission",
+      "runtimePlane": "admin",
+      "ownerDomain": "team",
+      "authClass": "team-member",
+      "mutability": "write",
+      "safeProduction": false,
+      "fixtures": [
+        "teamId",
+        "runId"
+      ],
+      "providerIngress": false,
+      "internalRunner": false,
+      "acceptance": {
+        "bodyFactory": "empty",
+        "successActors": [
+          "siteAdmin",
+          "marketSteward",
+          "teamOwner"
+        ],
+        "denyActors": [
+          "anonymous",
+          "teamOperator",
+          "teamViewer",
+          "nonMember",
+          "providerOperator",
+          "providerAccessToken",
+          "platformRunner"
+        ],
+        "expectedSuccessStatus": 200,
+        "exactStatusRequired": true,
+        "cleanup": "acceptance-owned-fixture",
+        "productionSafe": true,
+        "productionStrategy": "acceptance-owned-fixture"
+      },
+      "guarantee": {
+        "familyId": "agent-graphs-and-workdays",
+        "verifierRef": "api.endpoints.agent-graphs-and-workdays",
+        "coverage": "descriptor-and-workflow"
+      },
+      "sdkMethods": [
+        "closeWorkdayAdmission"
+      ]
+    },
+    {
       "id": "post.v1.teams.teamId.workday-runs.runId.events",
       "method": "POST",
       "path": "/v1/teams/:teamId/workday-runs/:runId/events",
@@ -23673,14 +25315,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
@@ -23716,14 +25358,14 @@
         "successActors": [
           "siteAdmin",
           "marketSteward",
-          "teamOwner",
-          "teamOperator",
-          "teamViewer",
-          "providerOperator"
+          "teamOwner"
         ],
         "denyActors": [
           "anonymous",
+          "teamOperator",
+          "teamViewer",
           "nonMember",
+          "providerOperator",
           "providerAccessToken",
           "platformRunner"
         ],
