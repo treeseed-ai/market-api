@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { Readable } from 'node:stream';
-import { proxyNodeWebSocketUpgrade } from '@treeseed/sdk/market-gateway';
+import { proxyNodeWebSocketUpgrade } from './gateway-support/node-websocket-proxy.js';
 import descriptor from '../artifacts/admin-api-descriptor.json' with { type: 'json' };
 import { createMarketGateway, type MarketHandler } from './gateway.js';
 import { createAudienceBoundAssertion } from './service-assertion.js';

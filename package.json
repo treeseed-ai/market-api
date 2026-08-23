@@ -2,7 +2,7 @@
   "name": "@treeseed/market-api",
   "version": "0.1.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-only",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -16,9 +16,7 @@
     "verify": "npm run build && npm test",
     "start": "node dist/server.js"
   },
-  "dependencies": {
-    "@treeseed/sdk": "git+https://github.com/treeseed-ai/sdk.git#76a6b6864d7e152b86d598a40d8f6d5203d566bc"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "24.6.0",
     "typescript": "5.9.3",
