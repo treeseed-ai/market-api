@@ -1,9 +1,9 @@
 {
   "schemaVersion": 3,
   "authority": "market-singleton",
-  "sdkRef": "8eb1a6a1b39202d0e0fb1014b8ddcb64002a0ed7",
-  "adminApiRef": "9c40a9803f8245821e0408673179562b898042b5",
-  "adminDescriptorDigest": "sha256:810cccc26feaf12fe437e102274b78878d4a420325c666b418ed297bcdca3f8e",
+  "sdkRef": "76a6b6864d7e152b86d598a40d8f6d5203d566bc",
+  "adminApiRef": "35011c4e549aff1839819ccff7652d1e138f88ab",
+  "adminDescriptorDigest": "sha256:6a269662cf306be8b48fca606b7d7e6a4085062a2938560f9b405bbba403697f",
   "deployment": "suspended",
   "managedPaths": [
     ".github/workflows/verify.yml",

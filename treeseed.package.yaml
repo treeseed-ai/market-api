@@ -16,6 +16,32 @@ verify:
 releaseGate:
   workflow: verify.yml
   timeoutSeconds: 1800
+development:
+  schemaVersion: treeseed.development-runtime/v1
+  project: { id: market-api, repository: treeseed-ai/market-api }
+  defaults: { leaseSeconds: 14400, restoreOnFailure: true }
+  targets:
+    - id: source
+      kind: source-check
+      platforms: [linux-amd64, linux-arm64, darwin-arm64, darwin-amd64]
+      runtimeRequirements: [node>=22]
+      sourceRoots: [src, tests, artifacts, package.json, tsconfig.json]
+      ignoredPaths: [dist, node_modules]
+      operations:
+        verify: { command: npm, args: [run, verify], environment: {}, timeoutSeconds: 900 }
+      ready: { kind: marker, path: package.json, timeoutSeconds: 30 }
+      outputs: []
+      endpoints: []
+      dependencies:
+        - { id: identity, target: package, locality: local, reaction: rebuild }
+      statePolicy: stateless
+      migrationPolicy: none
+      secretRefs: {}
+      shutdown: { graceSeconds: 0, activeWorkPolicy: block }
+      resources: {}
+      logs: []
+      forbiddenOperations: [plaintext-service-assertion, publish, production-tag]
+      promotion: { liveAdmissible: false, candidateRequiresVerification: true }
 projectArchitecture:
   topology: split_site_content
   rootPath: .
